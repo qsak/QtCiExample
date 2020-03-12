@@ -2,7 +2,7 @@ pipeline {
     agent any
     
     environment {
-        PRO_NAME = "QtJenkinsExamples.pro"
+        PRO_NAME = "QtJenkinsExample.pro"
     }
 
     stages {
