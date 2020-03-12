@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    
+    environment {
+        PRO_NAME = "QtJenkinsExamples.pro"
+    }
 
     stages {
         stage('Windows msvc 32 bit release') {
@@ -10,13 +14,12 @@ pipeline {
                 VCVARS = "${env.VCVARS32}"
                 BUILD_DIR = "build_win32"
                 MAKE = "${env.MAKE_WIN}"
-                PRO_NAME = "${env.JOB_NAME}"
             }
         
             steps {
                 powershell 'echo $env:BUILD_DIR'
                 powershell 'If(Test-Path $env:BUILD_DIR){Remove-Item $env:BUILD_DIR -recurse;mkdir $env:BUILD_DIR}Else{mkdir $env:BUILD_DIR}'
-                bat "cd %BUILD_DIR%&&set PATH=%QT_BIN%;%VC_PATH%;%PATH%&&%VCVARS%&&qmake ../%JOB_NAME%&&%MAKE%"
+                bat "cd %BUILD_DIR%&&set PATH=%QT_BIN%;%VC_PATH%;%PATH%&&%VCVARS%&&qmake ../%PRO_NAME%&&%MAKE%"
             }
         }
         
@@ -28,13 +31,12 @@ pipeline {
                 VCVARS = "${env.VCVARS64}"
                 BUILD_DIR = "build_win64"
                 MAKE = "${env.MAKE_WIN}"
-                PRO_NAME = "${env.JOB_NAME}"
             }
         
             steps {
                 powershell 'echo $env:BUILD_DIR'
                 powershell 'If(Test-Path $env:BUILD_DIR){Remove-Item $env:BUILD_DIR -recurse;mkdir $env:BUILD_DIR}Else{mkdir $env:BUILD_DIR}'
-                bat "cd %BUILD_DIR%&&set PATH=%QT_BIN%;%VC_PATH%;%PATH%&&%VCVARS%&&qmake ../%JOB_NAME%&&%MAKE%"
+                bat "cd %BUILD_DIR%&&set PATH=%QT_BIN%;%VC_PATH%;%PATH%&&%VCVARS%&&qmake ../%PRO_NAME%&&%MAKE%"
             }
         }
 
